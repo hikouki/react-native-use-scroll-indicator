@@ -1,33 +1,58 @@
 import {useCallback, useMemo, useRef, useState} from 'react';
 import {Animated, LayoutChangeEvent} from 'react-native';
 
-export function useScrollIndicator() {
-  const [viewportWidth, setViewportWidth] = useState(0);
-  const [scrollWidth, setScrollWidth] = useState(0);
-  const scrollPercent = useMemo(
-    () =>
-      ((viewportWidth - (scrollWidth - viewportWidth)) / viewportWidth) * 100,
-    [viewportWidth, scrollWidth],
-  );
+export default function useScrollIndicator() {
+  const moveX = useRef(new Animated.Value(0)).current;
+  const moveY = useRef(new Animated.Value(0)).current;
 
-  const scrollX = useRef(new Animated.Value(0)).current;
+  const [viewportSize, setViewportSize] = useState({w: 0, h: 0});
+  const [contentSize, setContentSize] = useState({w: 0, h: 0});
+
+  const indicator = useMemo(() => {
+    const sx =
+      contentSize.w > viewportSize.w
+        ? (viewportSize.w - (contentSize.w - viewportSize.w)) / viewportSize.w
+        : 1;
+
+    const sy =
+      contentSize.h > viewportSize.h
+        ? (viewportSize.h - (contentSize.h - viewportSize.h)) / viewportSize.h
+        : 1;
+
+    return {
+      sx,
+      sy,
+      width: `${sx * 100}%`,
+      height: `${sy * 100}%`,
+    };
+  }, [viewportSize, contentSize]);
 
   const onLayout = useCallback((e: LayoutChangeEvent) => {
-    const {width} = e.nativeEvent.layout;
-    setViewportWidth(width);
+    const {width, height} = e.nativeEvent.layout;
+    setViewportSize({w: width, h: height});
   }, []);
 
-  const onContentSizeChange = useCallback((w: number) => {
-    setScrollWidth(w);
+  const onContentSizeChange = useCallback((w: number, h: number) => {
+    setContentSize({w, h});
   }, []);
 
   const onScroll = useMemo(
     () =>
-      Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {
-        useNativeDriver: true,
-      }),
+      Animated.event(
+        [{nativeEvent: {contentOffset: {x: scrollX, y: scrollY}}}],
+        {
+          useNativeDriver: true,
+        },
+      ),
     [],
   );
 
-  return {scrollX, scrollPercent, onLayout, onContentSizeChange, onScroll};
+  return {
+    moveX,
+    moveY,
+    indicator,
+    onLayout,
+    onContentSizeChange,
+    onScroll,
+  };
 }
