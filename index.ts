@@ -38,12 +38,9 @@ export default function useScrollIndicator() {
 
   const onScroll = useMemo(
     () =>
-      Animated.event(
-        [{nativeEvent: {contentOffset: {x: scrollX, y: scrollY}}}],
-        {
-          useNativeDriver: true,
-        },
-      ),
+      Animated.event([{nativeEvent: {contentOffset: {x: moveX, y: moveY}}}], {
+        useNativeDriver: true,
+      }),
     [],
   );
 
