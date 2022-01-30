@@ -10,20 +10,16 @@ export default function useScrollIndicator() {
 
   const indicator = useMemo(() => {
     const sx =
-      contentSize.w > viewportSize.w
-        ? (viewportSize.w - (contentSize.w - viewportSize.w)) / viewportSize.w
-        : 1;
+      contentSize.w > viewportSize.w ? viewportSize.w / contentSize.w : 1;
 
     const sy =
-      contentSize.h > viewportSize.h
-        ? (viewportSize.h - (contentSize.h - viewportSize.h)) / viewportSize.h
-        : 1;
+      contentSize.h > viewportSize.h ? viewportSize.h / contentSize.h : 1;
 
     return {
-      sx,
-      sy,
-      width: `${sx * 100}%`,
-      height: `${sy * 100}%`,
+      sx: sx || 0,
+      sy: sy || 0,
+      width: sx * viewportSize.w || 0,
+      height: sy * viewportSize.h || 0,
     };
   }, [viewportSize, contentSize]);
 
@@ -47,6 +43,8 @@ export default function useScrollIndicator() {
   return {
     moveX,
     moveY,
+    viewportSize,
+    contentSize,
     indicator,
     onLayout,
     onContentSizeChange,
