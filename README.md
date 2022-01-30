@@ -10,6 +10,36 @@ npm install react-native-use-scroll-indicator
 
 ## Usage
 
+Horizontal Indicator.
+
+```tsx
+import React from 'react';
+import {Animated} from 'react-native';
+import {HorizontalScrollIndicator} from 'react-native-use-scroll-indicator';
+
+export default function Screen() {
+  ...
+
+  return (
+    <HorizontalScrollIndicator scale={0.8}>
+      {({ref, onLayout, onContentSizeChange, onScroll}) => (
+        <Animated.FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+          ref={ref}
+          onLayout={onLayout}
+          onContentSizeChange={onContentSizeChange}
+          onScroll={onScroll}
+        />
+      )}
+    </HorizontalScrollIndicator>
+  );
+}
+```
+
+Without Component.
+
 ```tsx
 import React from 'react';
 import {View, Animated} from 'react-native';
