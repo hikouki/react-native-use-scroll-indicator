@@ -21,9 +21,8 @@
   },
   "homepage": "https://github.com/hikouki/react-native-use-scroll-indicator#readme",
   "files": [
-    "index.js",
-    "index.d.ts",
-    "src/**/*.js"
+    "index.{js,d.ts}",
+    "src/**/*.{js,d.ts}"
   ],
   "peerDependencies": {
     "react": ">=16.8.0",
