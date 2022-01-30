@@ -92,13 +92,13 @@ export default function Screen() {
 
 ### HorizontalScrollIndicator
 
-| Prop                    | Required | Type                 |
-|-------------------------|:--------:|----------------------|
-| children                |    ○     | Function             |
-| containerStyle          |          | StyleProp<ViewStyle> |
-| indicatorContainerStyle |          | StyleProp<ViewStyle> |
-| indicatorStyle          |          | StyleProp<ViewStyle> |
-| scale                   |          | number               |
+| Prop                    | Required | Type                  |
+|-------------------------|:--------:|-----------------------|
+| children                |    ○     | Function              |
+| containerStyle          |          | StyleProp\<ViewStyle> |
+| indicatorContainerStyle |          | StyleProp\<ViewStyle> |
+| indicatorStyle          |          | StyleProp\<ViewStyle> |
+| scale                   |          | number                |
 
 ## LICENSE
 
