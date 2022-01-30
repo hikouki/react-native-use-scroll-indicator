@@ -23,7 +23,7 @@
   "files": [
     "index.js",
     "index.d.ts",
-    "src"
+    "src/**/*.js"
   ],
   "peerDependencies": {
     "react": ">=16.8.0",
