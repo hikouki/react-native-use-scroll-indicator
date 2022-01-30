@@ -13,7 +13,7 @@ npm install react-native-use-scroll-indicator
 ```tsx
 import React from 'react';
 import {View, Animated} from 'react-native';
-import useScrollIndicator from react-native-use-scroll-indicator';
+import {useScrollIndicator} from react-native-use-scroll-indicator';
 
 export default function Screen() {
   const {moveX, indicator, onLayout, onContentSizeChange, onScroll} =
@@ -46,7 +46,7 @@ export default function Screen() {
               width: indicator.width,
               transform: [
                 {
-                  translateX: Animated.multiply(moveX, 0.8),
+                  translateX: Animated.multiply(moveX, 0.8 * indicator.sx),
                 },
               ],
             },
