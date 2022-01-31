@@ -38,6 +38,33 @@ export default function Screen() {
 }
 ```
 
+Vertical Indicator.
+
+```tsx
+import React from 'react';
+import {Animated} from 'react-native';
+import {VerticalScrollIndicator} from 'react-native-use-scroll-indicator';
+
+export default function Screen() {
+  ...
+
+  return (
+    <VerticalScrollIndicator scale={0.8}>
+      {({ref, onLayout, onContentSizeChange, onScroll}) => (
+        <Animated.FlatList
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+          ref={ref}
+          onLayout={onLayout}
+          onContentSizeChange={onContentSizeChange}
+          onScroll={onScroll}
+        />
+      )}
+    </VerticalScrollIndicator>
+  );
+}
+```
+
 Without Component.
 
 ```tsx
@@ -91,6 +118,16 @@ export default function Screen() {
 ## Interface
 
 ### HorizontalScrollIndicator
+
+| Prop                    | Required | Type                  |
+|-------------------------|:--------:|-----------------------|
+| children                |    ○     | Function              |
+| containerStyle          |          | StyleProp\<ViewStyle> |
+| indicatorContainerStyle |          | StyleProp\<ViewStyle> |
+| indicatorStyle          |          | StyleProp\<ViewStyle> |
+| scale                   |          | number                |
+
+### VerticalScrollIndicator
 
 | Prop                    | Required | Type                  |
 |-------------------------|:--------:|-----------------------|
