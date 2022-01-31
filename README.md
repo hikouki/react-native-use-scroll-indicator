@@ -75,7 +75,8 @@ import {useScrollIndicator} from react-native-use-scroll-indicator';
 export default function Screen() {
   const {moveX, indicator, viewportSize, onLayout, onContentSizeChange, onScroll} =
     useScrollIndicator();
-    
+  const scale = 0.8;
+
   return (
     <View>
       <Animated.FlatList
@@ -87,7 +88,7 @@ export default function Screen() {
         onScroll={onScroll}
       />
       <View style={{
-        width: viewportSize.w * 0.8,
+        width: viewportSize.w * scale,
         height: 8,
         backgroundColor: '#333333',
         borderRadius: 4,
@@ -100,10 +101,10 @@ export default function Screen() {
               borderRadius: 4,
             },
             {
-              width: indicator.width,
+              width: indicator.width * scale,
               transform: [
                 {
-                  translateX: Animated.multiply(moveX, 0.8 * indicator.sx),
+                  translateX: Animated.multiply(moveX, scale * indicator.sx),
                 },
               ],
             },
