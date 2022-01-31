@@ -10,10 +10,40 @@ npm install react-native-use-scroll-indicator
 
 ## Usage
 
+Horizontal Indicator.
+
+```tsx
+import React from 'react';
+import {Animated} from 'react-native';
+import {HorizontalScrollIndicator} from 'react-native-use-scroll-indicator';
+
+export default function Screen() {
+  ...
+
+  return (
+    <HorizontalScrollIndicator scale={0.8}>
+      {({ref, onLayout, onContentSizeChange, onScroll}) => (
+        <Animated.FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+          ref={ref}
+          onLayout={onLayout}
+          onContentSizeChange={onContentSizeChange}
+          onScroll={onScroll}
+        />
+      )}
+    </HorizontalScrollIndicator>
+  );
+}
+```
+
+Without Component.
+
 ```tsx
 import React from 'react';
 import {View, Animated} from 'react-native';
-import useScrollIndicator from react-native-use-scroll-indicator';
+import {useScrollIndicator} from react-native-use-scroll-indicator';
 
 export default function Screen() {
   const {moveX, indicator, onLayout, onContentSizeChange, onScroll} =
@@ -46,7 +76,7 @@ export default function Screen() {
               width: indicator.width,
               transform: [
                 {
-                  translateX: Animated.multiply(moveX, 0.8),
+                  translateX: Animated.multiply(moveX, 0.8 * indicator.sx),
                 },
               ],
             },
@@ -57,3 +87,19 @@ export default function Screen() {
   );
 }
 ```
+
+## Interface
+
+### HorizontalScrollIndicator
+
+| Prop                    | Required | Type                  |
+|-------------------------|:--------:|-----------------------|
+| children                |    ○     | Function              |
+| containerStyle          |          | StyleProp\<ViewStyle> |
+| indicatorContainerStyle |          | StyleProp\<ViewStyle> |
+| indicatorStyle          |          | StyleProp\<ViewStyle> |
+| scale                   |          | number                |
+
+## LICENSE
+
+MIT
