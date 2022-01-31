@@ -2,6 +2,12 @@
   "name": "react-native-use-scroll-indicator",
   "version": "0.3.1",
   "description": "useScrollIndicator for react-native.",
+  "keywords": [
+    "react-native",
+    "scroll",
+    "scrollview",
+    "indicator"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
