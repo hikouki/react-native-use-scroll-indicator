@@ -7,10 +7,10 @@ import {
   ViewStyle,
   LayoutChangeEvent,
 } from 'react-native';
-import HorizontalScrollIndicatorComponent from './HorizontalScrollIndicatorComponent';
+import VerticalScrollIndicatorComponent from './VerticalScrollIndicatorComponent';
 import useScrollIndicator from '../useScrollIndicator';
 
-interface HorizontalScrollIndicatorProp {
+interface VerticalScrollIndicatorProp {
   containerStyle?: StyleProp<ViewStyle>;
   indicatorContainerStyle?: StyleProp<ViewStyle>;
   indicatorStyle?: StyleProp<ViewStyle>;
@@ -23,16 +23,16 @@ interface HorizontalScrollIndicatorProp {
   }) => React.ReactNode;
 }
 
-export default function HorizontalScrollIndicator({
+export default function VerticalScrollIndicator({
   children,
   scale = 1,
   containerStyle,
   indicatorContainerStyle,
   indicatorStyle,
-}: HorizontalScrollIndicatorProp) {
+}: VerticalScrollIndicatorProp) {
   const listRef = useRef<FlatList | null>(null);
   const {
-    moveX,
+    moveY,
     indicator,
     viewportSize,
     onLayout,
@@ -43,11 +43,11 @@ export default function HorizontalScrollIndicator({
   return (
     <View style={[styles.container, containerStyle]}>
       {children({ref: listRef, onLayout, onContentSizeChange, onScroll})}
-      <HorizontalScrollIndicatorComponent
+      <VerticalScrollIndicatorComponent
         viewportSize={viewportSize}
         containerStyle={indicatorContainerStyle}
         style={indicatorStyle}
-        moveX={moveX}
+        moveY={moveY}
         listRef={listRef}
         indicator={indicator}
         scale={scale}
@@ -57,5 +57,5 @@ export default function HorizontalScrollIndicator({
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: {flex: 1, flexDirection: 'row', alignItems: 'center'},
 });

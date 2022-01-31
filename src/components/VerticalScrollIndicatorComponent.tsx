@@ -12,36 +12,36 @@ import {
   PanResponderGestureState,
 } from 'react-native';
 
-interface HorizontalScrollIndicatorProp {
+interface VerticalScrollIndicatorProp {
   containerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
-  moveX: Animated.Value;
+  moveY: Animated.Value;
   listRef: React.RefObject<FlatList | null>;
-  indicator: {sx: number; width: number};
+  indicator: {sy: number; height: number};
   scale: number;
-  viewportSize: {w: number};
+  viewportSize: {h: number};
 }
 
-export default function HorizontalScrollIndicatorComponent({
+export default function VerticalScrollIndicatorComponent({
   containerStyle,
   style,
   indicator,
-  moveX,
+  moveY,
   listRef,
   scale,
   viewportSize,
-}: HorizontalScrollIndicatorProp) {
+}: VerticalScrollIndicatorProp) {
   const currentScrollOffsetX = useRef(0);
   const startScrollOffsetX = useRef(0);
   const draggable = useRef(false);
 
-  moveX.addListener(e => {
+  moveY.addListener(e => {
     currentScrollOffsetX.current = e.value;
   });
 
-  const width = useMemo(
-    () => indicator.width * scale,
-    [indicator.width, scale],
+  const height = useMemo(
+    () => indicator.height * scale,
+    [indicator.height, scale],
   );
 
   const dragOn = useCallback(() => {
@@ -64,13 +64,13 @@ export default function HorizontalScrollIndicatorComponent({
         const scrollRef = listRef.current.getNativeScrollRef() as ScrollView;
         if (scrollRef) {
           scrollRef.scrollTo({
-            x: (locationX - width / 2) / indicator.sx / scale,
+            x: (locationX - height / 2) / indicator.sy / scale,
             animated: false,
           });
         }
       }
     },
-    [draggable, listRef, width, indicator.sx, scale],
+    [draggable, listRef, height, indicator.sy, scale],
   );
 
   const panResponder = useMemo(() => {
@@ -96,7 +96,7 @@ export default function HorizontalScrollIndicatorComponent({
               listRef.current.getNativeScrollRef() as ScrollView;
             if (scrollRef) {
               scrollRef.scrollTo({
-                x: startScrollOffsetX.current + dx / indicator.sx / scale,
+                x: startScrollOffsetX.current + dx / indicator.sy / scale,
                 animated: false,
               });
             }
@@ -105,7 +105,7 @@ export default function HorizontalScrollIndicatorComponent({
         useNativeDriver: false,
       }),
     });
-  }, [listRef, indicator.sx, scale]);
+  }, [listRef, indicator.sy, scale]);
 
   return (
     <View
@@ -113,7 +113,7 @@ export default function HorizontalScrollIndicatorComponent({
       {...panResponder.panHandlers}
       style={[
         styles.container,
-        {width: scale * viewportSize.w},
+        {height: scale * viewportSize.h},
         containerStyle,
       ]}>
       <Animated.View
@@ -122,10 +122,10 @@ export default function HorizontalScrollIndicatorComponent({
         style={[
           styles.indicator,
           {
-            width,
+            height,
             transform: [
               {
-                translateX: Animated.multiply(moveX, scale * indicator.sx),
+                translateY: Animated.multiply(moveY, scale * indicator.sy),
               },
             ],
           },
@@ -138,13 +138,13 @@ export default function HorizontalScrollIndicatorComponent({
 
 const styles = StyleSheet.create({
   container: {
-    height: 8,
+    width: 8,
     backgroundColor: '#333333',
     borderRadius: 4,
   },
   indicator: {
     backgroundColor: '#27BDB9',
-    height: '100%',
+    width: '100%',
     borderRadius: 4,
   },
 });

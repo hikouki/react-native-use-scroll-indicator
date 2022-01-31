@@ -24,8 +24,8 @@ export default function useScrollIndicator() {
   }, [viewportSize, contentSize]);
 
   const onLayout = useCallback((e: LayoutChangeEvent) => {
-    const {width, height} = e.nativeEvent.layout;
-    setViewportSize({w: width, h: height});
+    const {width, height, x, y} = e.nativeEvent.layout;
+    setViewportSize({w: width + x, h: height + y});
   }, []);
 
   const onContentSizeChange = useCallback((w: number, h: number) => {
