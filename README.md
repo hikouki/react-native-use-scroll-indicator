@@ -73,7 +73,7 @@ import {View, Animated} from 'react-native';
 import {useScrollIndicator} from react-native-use-scroll-indicator';
 
 export default function Screen() {
-  const {moveX, indicator, onLayout, onContentSizeChange, onScroll} =
+  const {moveX, indicator, viewportSize, onLayout, onContentSizeChange, onScroll} =
     useScrollIndicator();
     
   return (
@@ -87,17 +87,17 @@ export default function Screen() {
         onScroll={onScroll}
       />
       <View style={{
-        width: '80%',
-        height: 20,
+        width: viewportSize.w * 0.8,
+        height: 8,
         backgroundColor: '#333333',
-        borderRadius: 10,
+        borderRadius: 4,
       }}>
         <Animated.View
           style={[
             {
               backgroundColor: '#27BDB9',
               height: '100%',
-              borderRadius: 10,
+              borderRadius: 4,
             },
             {
               width: indicator.width,
