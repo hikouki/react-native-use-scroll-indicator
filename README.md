@@ -122,7 +122,7 @@ export default function Screen() {
 
 | Prop                    | Required | Type                  |
 |-------------------------|:--------:|-----------------------|
-| children                |    ○     | Function              |
+| children                |    ☑️     | Function              |
 | containerStyle          |          | StyleProp\<ViewStyle> |
 | indicatorContainerStyle |          | StyleProp\<ViewStyle> |
 | indicatorStyle          |          | StyleProp\<ViewStyle> |
@@ -132,7 +132,7 @@ export default function Screen() {
 
 | Prop                    | Required | Type                  |
 |-------------------------|:--------:|-----------------------|
-| children                |    ○     | Function              |
+| children                |    ☑️     | Function              |
 | containerStyle          |          | StyleProp\<ViewStyle> |
 | indicatorContainerStyle |          | StyleProp\<ViewStyle> |
 | indicatorStyle          |          | StyleProp\<ViewStyle> |
