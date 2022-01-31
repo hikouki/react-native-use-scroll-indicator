@@ -31,12 +31,12 @@ export default function VerticalScrollIndicatorComponent({
   scale,
   viewportSize,
 }: VerticalScrollIndicatorProp) {
-  const currentScrollOffsetX = useRef(0);
-  const startScrollOffsetX = useRef(0);
+  const currentScrollOffsetY = useRef(0);
+  const startScrollOffsetY = useRef(0);
   const draggable = useRef(false);
 
   moveY.addListener(e => {
-    currentScrollOffsetX.current = e.value;
+    currentScrollOffsetY.current = e.value;
   });
 
   const height = useMemo(
@@ -57,14 +57,14 @@ export default function VerticalScrollIndicatorComponent({
       if (draggable.current) return;
 
       const {
-        nativeEvent: {locationX},
+        nativeEvent: {locationY},
       } = e;
 
       if (listRef.current) {
         const scrollRef = listRef.current.getNativeScrollRef() as ScrollView;
         if (scrollRef) {
           scrollRef.scrollTo({
-            x: (locationX - height / 2) / indicator.sy / scale,
+            y: (locationY - height / 2) / indicator.sy / scale,
             animated: false,
           });
         }
@@ -78,7 +78,7 @@ export default function VerticalScrollIndicatorComponent({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
         draggable.current = true;
-        startScrollOffsetX.current = currentScrollOffsetX.current;
+        startScrollOffsetY.current = currentScrollOffsetY.current;
       },
       onPanResponderRelease: () => {
         draggable.current = false;
@@ -89,14 +89,14 @@ export default function VerticalScrollIndicatorComponent({
           _: GestureResponderEvent,
           gestureState: PanResponderGestureState,
         ) => {
-          const {dx} = gestureState;
+          const {dy} = gestureState;
 
           if (listRef.current) {
             const scrollRef =
               listRef.current.getNativeScrollRef() as ScrollView;
             if (scrollRef) {
               scrollRef.scrollTo({
-                x: startScrollOffsetX.current + dx / indicator.sy / scale,
+                y: startScrollOffsetY.current + dy / indicator.sy / scale,
                 animated: false,
               });
             }
